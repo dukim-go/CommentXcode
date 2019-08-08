@@ -1,1 +1,4 @@
 xcuserdata
+Pods
+*.xcworkspace
+CommentXcode.xcworkspace
