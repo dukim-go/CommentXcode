@@ -7,14 +7,14 @@
 //
 
 import Cocoa
-import DGLog
+//import DGLog
 
 class ViewController: NSViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        DGLog()
+//        DGLog()
     }
 
     override var representedObject: Any? {
