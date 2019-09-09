@@ -8,19 +8,20 @@
 
 import Foundation
 import XcodeKit
+import DGLog
 
 class SourceEditorExtension: NSObject, XCSourceEditorExtension {
     
     func extensionDidFinishLaunching() {
-         //If your extension needs to do any work at launch, implement this optional method.
+         DGLog()
     }
     
     var commandDefinitions: [[XCSourceEditorCommandDefinitionKey: Any]] {
         return [
             [
-                XCSourceEditorCommandDefinitionKey.nameKey: SourceEditorCommand.commandName,
-                XCSourceEditorCommandDefinitionKey.classNameKey: SourceEditorCommand.className(),
-                XCSourceEditorCommandDefinitionKey.identifierKey: SourceEditorCommand.commandIdentifier
+                .nameKey: SourceEditorCommand.commandName,
+                .classNameKey: SourceEditorCommand.className(),
+                .identifierKey: SourceEditorCommand.commandIdentifier
             ]
         ]
     }
