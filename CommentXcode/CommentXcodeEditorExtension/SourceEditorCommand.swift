@@ -3,7 +3,7 @@
 //  CommentXcodeEditorExtension
 //
 //  Created by daeung Kim on 2019/08/04.
-//  Copyright © 2019 daeung. All rights reserved.
+//  Copyright © Horing. All rights reserved.
 //
 
 import Foundation

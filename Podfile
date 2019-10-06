@@ -4,7 +4,7 @@ project 'CommentXcode/CommentXcode.xcodeproj'
 
 abstract_target 'Common' do
 
-  pod 'DGLog', :git => "https://github.com/dukim-go/DGLog.git", :commit => "2032b98bc6541471b4ba3c809b76546de6ced6c3"
+  pod 'DGLog', :git => "https://github.com/dukim-go/DGLog.git", :commit => "d3cf196cbf3d095821ce6fa8af3863a9f1ad9929"
 
   target 'CommentXcode' do
     use_frameworks!
