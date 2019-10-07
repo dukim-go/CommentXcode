@@ -8,16 +8,18 @@
 
 import Foundation
 
-extension String{
-    func textsByRegexPattern(_ pattern: String) throws -> [String] {
+extension String {
+    typealias RegexResult = (text: String, range: Range<String.Index>)
+    
+    func regexResultByPattern(_ pattern: String) throws -> [RegexResult] {
         let regex = try NSRegularExpression(pattern: pattern)
         let results = regex.matches(in: self, range: NSRange(startIndex..., in: self))
 
-        return results.compactMap { (textCheckingResult) -> String? in
+        return results.compactMap { (textCheckingResult) -> RegexResult? in
             guard let range = Range(textCheckingResult.range, in: self) else {
                 return nil
             }
-            return String(self[range])
+            return RegexResult(text: String(self[range]), range: range)
         }
     }
 }

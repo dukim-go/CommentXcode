@@ -10,26 +10,22 @@ import Foundation
 import XcodeKit
 import DGLog
 
-extension XCSourceTextBuffer {
-    var replaceTest: String {
-        guard lines.count > 0 else {
-            return ""
-        }
-        
-        
-        
-        return ""
-    }
-}
-
 enum UTI {
+    
+    enum UTIError: Error {
+        case unsupportedUTI
+        case notExistSource
+        case buffer
+    }
     
     enum SwiftSource: String, CaseIterable {
         case `protocol`
-        case `class`
         case `struct`
+        case `class`
         case `enum`
         case `func`
+        case `let`
+        case `var`
     }
     
     enum ObjcSource {
@@ -42,13 +38,13 @@ enum UTI {
     
     case swift(source: SwiftSource)
     
-    init?(buffer: XCSourceTextBuffer) {
+    init(buffer: XCSourceTextBuffer) throws {
         guard let lines = buffer.lines as? [String], lines.count > 0 else {
-            return nil
+            throw UTIError.buffer
         }
         
         guard let startRange = buffer.selections.firstObject as? XCSourceTextRange else {
-            return nil
+            throw UTIError.buffer
         }
         
         let startLine = startRange.start.line
@@ -58,22 +54,33 @@ enum UTI {
         
         switch buffer.contentUTI {
         case "public.swift-source":
-            
-//            let r = validLines.first { (line) -> Bool in
-//                do {
-//                    let t = try SwiftSource.allCases.compactMap{ line.textsByRegexPattern($0.rawValue) }
-//
-//                } catch {
-//
-//                }
-//            }
-            
-            
-            
-            self = .swift(source: .class)
+             typealias Tuple = (swiftSource: SwiftSource, regexResult: String.RegexResult)
+             
+             var tuple: Tuple?
+             for line in validLines {
+                let arr = try SwiftSource.allCases.compactMap({ (swiftSource) -> Tuple? in
+                    if let regexResult = try line.regexResultByPattern(swiftSource.rawValue).first {
+                        return (swiftSource, regexResult)
+                    } else {
+                        return nil
+                    }
+                })
+                let sorted = arr.sorted { $0.regexResult.range.lowerBound < $1.regexResult.range.lowerBound }
+                if let first = sorted.first {
+                    tuple = first
+                    break
+                }
+             }
+             
+             if let tuple = tuple {
+                self = .swift(source: tuple.swiftSource)
+                
+             } else {
+                throw UTIError.notExistSource
+            }
             
         default:
-            return nil
+            throw UTIError.unsupportedUTI
         }
     }
 }
@@ -81,15 +88,6 @@ enum UTI {
 final class SourceEditorCommand: NSObject, XCSourceEditorCommand {
     
     func perform(with invocation: XCSourceEditorCommandInvocation, completionHandler: @escaping (Error?) -> Void ) -> Void {
-        
-        enum Closing {
-            case complate(Swift.Error?)
-            case cancel
-        }
-        
-        defer {
-            completionHandler(nil)
-        }
         
 //        let buffer = invocation.buffer
 //        DGLog("completeBuffer \(buffer.completeBuffer)")
@@ -99,7 +97,18 @@ final class SourceEditorCommand: NSObject, XCSourceEditorCommand {
 //        DGLog("indentationWidth \(buffer.indentationWidth)")
 //        DGLog("usesTabsForIndentation \(buffer.usesTabsForIndentation)")
 //        DGLog("tabWidth \(buffer.tabWidth)")
-        let uti = UTI.init(buffer: invocation.buffer)
+        
+        defer {
+            completionHandler(nil)
+        }
+        
+        do {
+            let uti = try UTI(buffer: invocation.buffer)
+            DGLog(uti)
+
+        } catch {
+            DGLog(error)
+        }
     }
     
     static var commandName: String {
