@@ -24,7 +24,7 @@ extension XCSourceTextBuffer {
 
 enum UTI {
     
-    enum SwiftSource {
+    enum SwiftSource: String, CaseIterable {
         case `protocol`
         case `class`
         case `struct`
@@ -52,12 +52,23 @@ enum UTI {
         }
         
         let startLine = startRange.start.line
-        let ranage = (startLine - 1) ... startLine
-        let validIndexes = ranage.compactMap{ ($0 >= 0) ? $0 : nil }
+        let ranage = startLine ... startLine + 1
+        let validIndexes = ranage.compactMap{ ($0 < lines.count) ? $0 : nil }
         let validLines = validIndexes.reduce([]) { $0 + [lines[$1]] }
         
         switch buffer.contentUTI {
         case "public.swift-source":
+            
+//            let r = validLines.first { (line) -> Bool in
+//                do {
+//                    let t = try SwiftSource.allCases.compactMap{ line.textsByRegexPattern($0.rawValue) }
+//
+//                } catch {
+//
+//                }
+//            }
+            
+            
             
             self = .swift(source: .class)
             
