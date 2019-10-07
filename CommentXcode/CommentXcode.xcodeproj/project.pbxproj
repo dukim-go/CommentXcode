@@ -13,6 +13,7 @@
 		0BF3D9F122F7085B00C535D8 /* CommentXcodeEditorExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 0BF3D9E422F7085B00C535D8 /* CommentXcodeEditorExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		A9A4C1E9FC31A5AA44042977 /* Pods_Common_CommentXcode.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 059A607FE5DBBD3584A2A27E /* Pods_Common_CommentXcode.framework */; };
 		ABDA6D1A6847EC5591283FAE /* Pods_CommentXcodeTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C8C8DE558A03723EA84E61B /* Pods_CommentXcodeTests.framework */; };
+		BA0C57E2234B175C007028B3 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0C57E1234B175C007028B3 /* StringExtensions.swift */; };
 		D8F09E4FA356C94BB964D7B6 /* Pods_CommentXcodeUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F88D3ACB9F3154DAFB81703F /* Pods_CommentXcodeUITests.framework */; };
 		DB71412153D9AB1EDABF5A61 /* Pods_Common_CommentXcodeEditorExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBACA56748F426EACB6D4161 /* Pods_Common_CommentXcodeEditorExtension.framework */; };
 		FF7081A122E691B5002CD683 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF7081A022E691B5002CD683 /* AppDelegate.swift */; };
@@ -75,6 +76,7 @@
 		9C8C8DE558A03723EA84E61B /* Pods_CommentXcodeTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CommentXcodeTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		ADBFE31737E6535C767E441F /* Pods-Common-CommentXcode.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Common-CommentXcode.debug.xcconfig"; path = "Target Support Files/Pods-Common-CommentXcode/Pods-Common-CommentXcode.debug.xcconfig"; sourceTree = "<group>"; };
 		AFADC4191769F7C93FA2B37E /* Pods-CommentXcodeTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CommentXcodeTests.release.xcconfig"; path = "Target Support Files/Pods-CommentXcodeTests/Pods-CommentXcodeTests.release.xcconfig"; sourceTree = "<group>"; };
+		BA0C57E1234B175C007028B3 /* StringExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
 		C0B1A9D68C69E976E8EE0206 /* Pods-CommentXcodeUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CommentXcodeUITests.release.xcconfig"; path = "Target Support Files/Pods-CommentXcodeUITests/Pods-CommentXcodeUITests.release.xcconfig"; sourceTree = "<group>"; };
 		D7A7EA7009C9196AF99202AF /* Pods-Common-CommentXcodeEditorExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Common-CommentXcodeEditorExtension.release.xcconfig"; path = "Target Support Files/Pods-Common-CommentXcodeEditorExtension/Pods-Common-CommentXcodeEditorExtension.release.xcconfig"; sourceTree = "<group>"; };
 		EB70F798B2A5D675A7D920DC /* Pods-CommentXcodeUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CommentXcodeUITests.debug.xcconfig"; path = "Target Support Files/Pods-CommentXcodeUITests/Pods-CommentXcodeUITests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -163,12 +165,21 @@
 		0BF3D9E822F7085B00C535D8 /* CommentXcodeEditorExtension */ = {
 			isa = PBXGroup;
 			children = (
-				0BF3D9E922F7085B00C535D8 /* SourceEditorExtension.swift */,
-				0BF3D9EB22F7085B00C535D8 /* SourceEditorCommand.swift */,
-				0BF3D9ED22F7085B00C535D8 /* Info.plist */,
 				0BF3D9EE22F7085B00C535D8 /* CommentXcodeEditorExtension.entitlements */,
+				0BF3D9ED22F7085B00C535D8 /* Info.plist */,
+				0BF3D9EB22F7085B00C535D8 /* SourceEditorCommand.swift */,
+				0BF3D9E922F7085B00C535D8 /* SourceEditorExtension.swift */,
+				BA0C57DC234B0CBF007028B3 /* Extensions */,
 			);
 			path = CommentXcodeEditorExtension;
+			sourceTree = "<group>";
+		};
+		BA0C57DC234B0CBF007028B3 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				BA0C57E1234B175C007028B3 /* StringExtensions.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		FF70819422E691B5002CD683 = {
@@ -499,6 +510,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BA0C57E2234B175C007028B3 /* StringExtensions.swift in Sources */,
 				0BF3D9EA22F7085B00C535D8 /* SourceEditorExtension.swift in Sources */,
 				0BF3D9EC22F7085B00C535D8 /* SourceEditorCommand.swift in Sources */,
 			);

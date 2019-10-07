@@ -3,7 +3,7 @@
 //  CommentXcodeTests
 //
 //  Created by Daeung Kim on 23/07/2019.
-//  Copyright © Horing. All rights reserved.
+//  Copyright © 2019 Horing. All rights reserved.
 //
 
 import XCTest

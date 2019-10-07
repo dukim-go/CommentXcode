@@ -2,8 +2,8 @@
 //  SourceEditorCommand.swift
 //  CommentXcodeEditorExtension
 //
-//  Created by daeung Kim on 2019/08/04.
-//  Copyright © Horing. All rights reserved.
+//  Created by Daeung Kim on 2019/08/04.
+//  Copyright © 2019 Horing. All rights reserved.
 //
 
 import Foundation
@@ -42,9 +42,23 @@ enum UTI {
     
     case swift(source: SwiftSource)
     
-    init?(value: String) {
-        switch value {
+    init?(buffer: XCSourceTextBuffer) {
+        guard let lines = buffer.lines as? [String], lines.count > 0 else {
+            return nil
+        }
+        
+        guard let startRange = buffer.selections.firstObject as? XCSourceTextRange else {
+            return nil
+        }
+        
+        let startLine = startRange.start.line
+        let ranage = (startLine - 1) ... startLine
+        let validIndexes = ranage.compactMap{ ($0 >= 0) ? $0 : nil }
+        let validLines = validIndexes.reduce([]) { $0 + [lines[$1]] }
+        
+        switch buffer.contentUTI {
         case "public.swift-source":
+            
             self = .swift(source: .class)
             
         default:
@@ -66,19 +80,15 @@ final class SourceEditorCommand: NSObject, XCSourceEditorCommand {
             completionHandler(nil)
         }
         
-        let buffer = invocation.buffer
-        DGLog("completeBuffer \(buffer.completeBuffer)")
-        DGLog("contentUTI \(buffer.contentUTI)")
-        DGLog("lines \(buffer.lines)")
-        DGLog("selections \(buffer.selections)")
-        DGLog("indentationWidth \(buffer.indentationWidth)")
-        DGLog("usesTabsForIndentation \(buffer.usesTabsForIndentation)")
-        DGLog("tabWidth \(buffer.tabWidth)")
-        
-        
-        let range = XCSourceTextRange(start: XCSourceTextPosition(line: 5, column: 12),
-                                      end: XCSourceTextPosition(line: 5, column: 15))
-        buffer.selections.add(range)
+//        let buffer = invocation.buffer
+//        DGLog("completeBuffer \(buffer.completeBuffer)")
+//        DGLog("contentUTI \(buffer.contentUTI)")
+//        DGLog("lines \(buffer.lines)")
+//        DGLog("selections \(buffer.selections)")
+//        DGLog("indentationWidth \(buffer.indentationWidth)")
+//        DGLog("usesTabsForIndentation \(buffer.usesTabsForIndentation)")
+//        DGLog("tabWidth \(buffer.tabWidth)")
+        let uti = UTI.init(buffer: invocation.buffer)
     }
     
     static var commandName: String {

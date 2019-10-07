@@ -2,8 +2,8 @@
 //  SourceEditorExtension.swift
 //  CommentXcodeEditorExtension
 //
-//  Created by daeung Kim on 2019/08/04.
-//  Copyright © Horing. All rights reserved.
+//  Created by Daeung Kim on 2019/08/04.
+//  Copyright © 2019 Horing. All rights reserved.
 //
 
 import Foundation
